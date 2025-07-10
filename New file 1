@@ -1,0 +1,18 @@
+import pandas as pd
+import os
+
+# Step 1: Load the data
+df = pd.read_csv('C:\Users\ravi\my-data-project\data\raw\your_file.csv')
+print("Before cleaning, rows:", len(df))
+
+# Step 2: Apply transformations
+df = df.dropna()  # Remove missing values
+df = df.drop_duplicates()  # Remove duplicate rows
+df.columns = df.columns.str.lower()  # Conert column names to lowercase
+df = df[df[df.columns[0]] != ""]  # Remove rows where first column is empty
+df = df.reset_index(drop=True)  # Reset index
+
+# Step 3: Save cleaned data to processed folder
+os.makedirs('C:/Users/ravi/my-data-project/data/processed', exist_ok=True)
+df.to_csv('C:/Users/ravi/my-data-project/data/processed/cleaned_file.csv', index=False)
+print("After cleaning, rows:", len(df))
